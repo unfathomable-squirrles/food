@@ -1,23 +1,28 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
+  workflow_dispatch:
   schedule:
-  - cron: "*/10 * * * *"
+  - cron: "0 * * * *"
 jobs:
   deployment:
     runs-on: ubuntu-latest
     steps:
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     - name: HTTP Request Action
       uses: fjogeleit/http-request-action@v1.14.1
       with:
        # Request URL
-         url: 'https://api.dineoncampus.com/v1/location/64b9990ec625af0685fb939d/periods/64f52d80c625af0b34b85fbf?platform=0&date=2023-10-26'
+       # url: 'https://api.dineoncampus.com/v1/location/64b9990ec625af0685fb939d/periods/64f52d80c625af0b34b85fbf?platform=0&date=2023-10-26'
+         #url: 'https://api.dineoncampus.com/v1/location/64b9990ec625af0685fb939d/periods/64f52d80c625af0b34b85fbf'
        # Request Method
          method: GET
        # Content Type
        #contentType: # optional
        # Request Body as JSON String
-       #data: # optional, default is {}
+         #data: '{"platform":0,"date":"2023-10-26"}'
        # Map of absolute file paths as JSON String
        #files: # optional, default is {}
        # A single absolute file path
