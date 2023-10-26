@@ -1,5 +1,5 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: get data from the api
+run-name: getting data from API
 on:
   workflow_dispatch:
   schedule:
@@ -20,29 +20,7 @@ jobs:
          #url: 'https://api.dineoncampus.com/v1/location/64b9990ec625af0685fb939d/periods/64f52d80c625af0b34b85fbf'
        # Request Method
          method: GET
-       # Content Type
-       #contentType: # optional
-       # Request Body as JSON String
-       #DOESNT WORK FOR ME?? (DOESN'T WORL FOR GET REQUESTS
-         #data: '{"platform":0, "date":"2023-10-26"}'
-       # Map of absolute file paths as JSON String
-       #files: # optional, default is {}
-       # A single absolute file path
-       #file: # optional
-       #timeout: # optional, default is 5000
-       # Bearer Authentication Token
-       #bearerToken: # optional
-       # Custom HTTP Headers
-       #customHeaders: # optional
-       # Prevent this Action to fail if the request respond without an response
-       #preventFailureOnNoResponse: # optional
-       # Prevent this Action to fail if the request respond with one of the configured StatusCodes
-       #ignoreStatusCodes: # optional
-       # Escape newlines in data string content
-       #escapeData: # optional
        # Persist the response data to the specified file path
          responseFile: 'response.json'
-       # optional amount of retries if the request fails
-       #retry: # optional
-       # wait time between retries in milliseconds
-       #retryWait: # optional
+    - name: verify file is made
+      run: ls
