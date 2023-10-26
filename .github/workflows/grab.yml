@@ -19,7 +19,7 @@ jobs:
          #url: 'https://api.dineoncampus.com/v1/location/64b9990ec625af0685fb939d/periods/64f52d80c625af0b34b85fbf?platform=0&date=2023-10-26'
          url: 'https://api.dineoncampus.com/v1/location/64b9990ec625af0685fb939d/periods/64f52d80c625af0b34b85fbf'
        # Request Method
-         method: GET
+         method: POST
        # Content Type
        #contentType: # optional
        # Request Body as JSON String
