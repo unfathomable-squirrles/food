@@ -1,6 +1,6 @@
 import requests
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 
 url = "https://api.dineoncampus.com/v1/location/64b9990ec625af0685fb939d/periods/{0}?platform=0&date={1}"
 
@@ -8,10 +8,10 @@ meals = {"Breakfast":"64f52d80c625af0b34b85fbf","Lunch":"64f52d80c625af0b34b85fc
 
 days = {}
 
-days["today"] = datetime.today().strftime('%Y-%m-%d')
-#days["tomorrow"] = (datetime.today() + timedelta(1)).strftime('%Y-%m-%d')
+timezone_offset = -4
 
-print(days)
+days["today"] = datetime.now(timezone(timedelta(hours=timezone_offset))).strftime('%Y-%m-%d')
+#days["tomorrow"] = (datetime.today() + timedelta(1)).strftime('%Y-%m-%d')
 
 for day in days:
     header = """<!DOCTYPE html>
@@ -33,13 +33,12 @@ for day in days:
     body = ""
     for meal in meals:
         data = requests.get(url.format(meals[meal], days[day])).json()
-        #data = json.load(open('response.json'))
 
         body = body + f"<div id=\"{meal.lower()}\">\n"
         body = body + f"<div class=\"title\">\n<h1>Wadsworth {meal}</h1>\n<p class=\"sub\">Updated: "
-        body = body + str(datetime.now().strftime('%a %b %-d at %-I:%M %p\n'))
+        body = body + str(datetime.now(timezone(timedelta(hours=timezone_offset))).strftime('%a %b %-d at %-I:%M %p\n'))
         body = body + "</p>\n</div>\n<div class=\"tray\">\n"
-        
+
         empty_stations = ""
         for station in data["menu"]["periods"]["categories"]:
             if len(station["items"]) > 0:
@@ -61,6 +60,5 @@ for day in days:
 
     with open(f"{day}.html", 'w') as file:
         file.write(header+body+footer)
-
 
 print(header+body+footer)
