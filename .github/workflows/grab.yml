@@ -8,19 +8,18 @@ jobs:
   deployment:
     runs-on: ubuntu-latest
     steps:
-    - name: Get current date
-      id: date
-      run: echo "now=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-      #run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
-    - name: HTTP Request Action
-      uses: fjogeleit/http-request-action@v1.14.1
-      with:
-       # Request URL
-         url: 'https://api.dineoncampus.com/v1/location/64b9990ec625af0685fb939d/periods/64f52d80c625af0b34b85fbf?platform=0&date=${{ steps.date.outputs.now }}'
-         #url: 'https://api.dineoncampus.com/v1/location/64b9990ec625af0685fb939d/periods/64f52d80c625af0b34b85fbf'
-       # Request Method
-         method: GET
-       # Persist the response data to the specified file path
-         responseFile: 'response.json'
-    - name: verify file is made
-      run: ls
+    - uses: actions/checkout@4.1.1
+    - name: run the update script
+      run: python ./parse.py
+    - name: switching from HTTPS to SSH
+      run: git remote set-url origin ${{ secrets.ssh }}
+    - name: check for changes
+      run: git status
+    - name: stage changed files
+      run: git add .
+    - name: commit changed files
+      run: git commit -m "Auto updating menu"
+    - name: fetch from master
+      run: git fetch origin master
+    - name: push code to master
+      run: git push origin HEAD:master
