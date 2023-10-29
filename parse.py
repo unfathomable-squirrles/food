@@ -44,7 +44,7 @@ for day in days:
             if len(station["items"]) > 0:
                 body = body + "<div class=\"slice\">\n<h2>{0}</h2>\n<hr>\n".format(station["name"])
                 for item in station["items"]:
-                    body = body + "<p>{0}</p>\n".format(item["name"])
+                    body = body + "<h3>{0}</h3>\n".format(item["name"])
                     if item["desc"]:
                         body = body + "<p class=\"smol\">{0}</p>\n".format(item["desc"])
                     else:
