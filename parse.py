@@ -4,7 +4,7 @@ from datetime import datetime, timezone, timedelta
 
 url = "https://api.dineoncampus.com/v1/location/64b9990ec625af0685fb939d/periods/{0}?platform=0&date={1}"
 
-meals = {"Breakfast":"64f52d80c625af0b34b85fbf","Lunch":"64f52d80c625af0b34b85fc8","Dinner":"64f52d80c625af0b34b85fd7"}
+meals = {"Breakfast":"6595ac33351d530679169c2e","Lunch":"6595ac33351d530679169c21","Dinner":"6595ac33351d530679169c2b"}
 
 days = {}
 
